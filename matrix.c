@@ -4,49 +4,63 @@
 #include "termios.h"
 #include "time.h"
 #include "unistd.h"
+
+
 int search(int vi_tail[100], int vj_tail[100], int i, int j, int tail_length, int v[100][100]) 
 {
-    for (int k = 0; k < tail_length; k++) {
+    
+    for (int k = 0; k <= tail_length; k++) {
         if (vi_tail[k] == i && vj_tail[k] == j) {
             return 1;
         }
     }
+    
     return 0;
 }
 
 void matrix(int n, int m, int pos_i, int pos_j, int v[100][100], int tail_length, int vi_tail[100], int vj_tail[100]) 
 {
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) {  // AICI AM ADĂUGAT `{`
         for (int j = 0; j < m; j++) {
             if (j == m - 1) 
                 printf("|\n");
             else if (i == 0 && j != 0) {
                 printf("-");
             } else if (j == 0) {
-                    printf("|");
+                printf("|");
             } else if (i == n - 1) {
-                    printf("-");
+                printf("-");
             } else if (i == pos_i && j == pos_j) {
-                    printf("@");
+                printf("@");
             } else if (search(vi_tail, vj_tail, i, j, tail_length, v) == 1) {
-                    printf("o");
+                printf("o");
             } else if (v[i][j] == 1) {
-                    printf("*");
+                printf("*");
             } else {
                 printf(" ");
             }
         }
+    }  // AICI AM ÎNCHIS `{` CARE ÎNCHIDE TOT FOR-UL MARE
+
 }
 
 void position(int n, int m, char c, int *pos_i, int *pos_j, int *tail_length, int vi_tail[100], int vj_tail[100]) 
 {
     
-    for (int i = 0; i < *tail_length ; i++) {
-        vi_tail[i] = vi_tail[i + 1];
-        vj_tail[i] = vj_tail[i + 1];
+    if (*tail_length > 0) {
+        for (int i = (*tail_length) - 1 ; i > 0; i--) {
+            vi_tail[i] = vi_tail[i - 1];
+            vj_tail[i] = vj_tail[i - 1];
+        }
+        vi_tail[0] = *pos_i;
+        vj_tail[0] = *pos_j;
+    } else if (*tail_length == 0) {
+        vi_tail[0] = *pos_i;
+        vj_tail[0] = *pos_j;
     }
-    vi_tail[0] = *pos_i;
-    vj_tail[0] = *pos_j;
+    
+    
+
     if (c == 'w') {
         (*pos_i)--;
     }
@@ -89,27 +103,30 @@ void make_random(int n, int m, int v[100][100])
 int make_one_random(int n) 
 {
     int numi = rand() % (n);
-        if(numi == 0)
+        if (numi == 0)
             numi++;
         //srand(time(NULL));
-        if(numi == n - 1)
+        if (numi == n - 1)
             numi--;
     return numi;
 }
 
 void verif_pos(int n, int m, int v[100][100], int pos_i, int pos_j, int vi_tail[100], int vj_tail[100], int *tail_length)
 {
-    for(int i = 0; i < n; i++)
-        for(int j = 0; j < m; j++)
-            if(v[i][j] == 1 && pos_i == i && pos_j == j) {
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            if (v[i][j] == 1 && pos_i == i && pos_j == j) {
                 int k = make_one_random(n);
                 int l = make_one_random(n);
 
                 v[i][j] = 0;
                 int ok = 0;
-
-                *tail_length++;
-                for(int i = *tail_length; i > 0; i--) {
+                if(*tail_length == -1) {
+                    *tail_length = 0;
+                } else {
+                (*tail_length)++;
+                }
+                for (int i = (*tail_length) - 1; i > 0; i--) {
                     vi_tail[i] = vi_tail[i - 1];
                     vj_tail[i] = vj_tail[i - 1];
                     
@@ -131,7 +148,6 @@ void verif_pos(int n, int m, int v[100][100], int pos_i, int pos_j, int vi_tail[
 
 
 // de facut contorul la puncte ca e bugged
-// de facut coada
 // de implementat marimea tabelei
 // de facut moduri de joc cu viteza si nebunii 
 //de vazut cum fac cu terminalul sa fie ok dupa probabil de set input mode se intampla asta

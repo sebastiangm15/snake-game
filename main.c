@@ -49,11 +49,11 @@ int main(void)
         usleep(300000);
         position(n, m, c, &start_i, &start_j, &tail_length, vi_tail, vj_tail);
         printf("\033[H\033[J");  // Clear screen using ANSI escape codes
-        //fflush(stdout);        
+      
         matrix(n, m, start_i, start_j, v, tail_length, vi_tail, vj_tail);
 
         verif_pos(n, m, v, start_i, start_j, vi_tail, vj_tail, &tail_length);
-        printf("Tail length increased: %d\n", tail_length);
+        printf("score : %d\n", (tail_length + 1) * 10);
 
 
     }

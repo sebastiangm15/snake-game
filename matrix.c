@@ -20,7 +20,7 @@ int search(int vi_tail[100], int vj_tail[100], int i, int j, int tail_length, in
 
 void matrix(int n, int m, int pos_i, int pos_j, int v[100][100], int tail_length, int vi_tail[100], int vj_tail[100]) 
 {
-    for (int i = 0; i < n; i++) {  // AICI AM ADĂUGAT `{`
+    for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             if (j == m - 1) 
                 printf("|\n");
@@ -40,21 +40,20 @@ void matrix(int n, int m, int pos_i, int pos_j, int v[100][100], int tail_length
                 printf(" ");
             }
         }
-    }  // AICI AM ÎNCHIS `{` CARE ÎNCHIDE TOT FOR-UL MARE
-
+    }
 }
 
 void position(int n, int m, char c, int *pos_i, int *pos_j, int *tail_length, int vi_tail[100], int vj_tail[100]) 
 {
     
     if (*tail_length > 0) {
-        for (int i = (*tail_length) - 1 ; i > 0; i--) {
+        for (int i = (*tail_length) ; i > 0; i--) {
             vi_tail[i] = vi_tail[i - 1];
             vj_tail[i] = vj_tail[i - 1];
         }
         vi_tail[0] = *pos_i;
         vj_tail[0] = *pos_j;
-    } else if (*tail_length == 0) {
+    }  else if (*tail_length == 0) {
         vi_tail[0] = *pos_i;
         vj_tail[0] = *pos_j;
     }

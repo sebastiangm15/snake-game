@@ -33,6 +33,11 @@ int main(void)
 
     char c, c_new;
     int n = 15, m = 15, v[100][100] = {0};
+   
+    printf("Select the size of the game :\n");
+    scanf("%d", &n);
+    
+    m = n; 
     int start_i = n / 2, start_j = m / 2, tail_length = -1;
     
     srand(time(NULL));
@@ -54,13 +59,16 @@ int main(void)
 
         verif_pos(n, m, v, start_i, start_j, vi_tail, vj_tail, &tail_length);
         printf("score : %d\n", (tail_length + 1) * 10);
+        if (death_condition(start_i, start_j, tail_length, vi_tail, vj_tail, n, m) == 1) {
+            printf("\033[H\033[J");
+            printf("\tLOOSE\n");
+            break;
+        }
 
 
     }
-    printf("\n%d\n", tail_length);
-    for(int i = 0; i < tail_length; i++) {
-        printf("%d %d\n", vi_tail[i], vj_tail[i]);
-    }
+    printf("\tScore was %d\n", (tail_length + 1) * 10);
+    
 
     restore_terminal();
 

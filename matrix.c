@@ -6,6 +6,22 @@
 #include "unistd.h"
 
 
+
+int death_condition(int i, int j, int tail_length, int vi[100], int vj[100], int n, int m)
+{
+    if(i == 0 || j == 0)
+        return 1;
+    for(int k = 1; k < tail_length; k++) {
+        if(vi[k] == i && vj[k] == j)
+            return 1;
+    }
+    if(i == n - 1 || j == m - 1)
+        return 1;
+    
+    return 0;
+
+}
+
 int search(int vi_tail[100], int vj_tail[100], int i, int j, int tail_length, int v[100][100]) 
 {
     
@@ -58,7 +74,6 @@ void position(int n, int m, char c, int *pos_i, int *pos_j, int *tail_length, in
         vj_tail[0] = *pos_j;
     }
     
-    
 
     if (c == 'w') {
         (*pos_i)--;
@@ -77,7 +92,7 @@ void position(int n, int m, char c, int *pos_i, int *pos_j, int *tail_length, in
 void make_random(int n, int m, int v[100][100]) 
 {
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < n / 2; i++) {
         //srand(time(NULL));
         
         int numi = rand() % (n);
@@ -145,8 +160,7 @@ void verif_pos(int n, int m, int v[100][100], int pos_i, int pos_j, int vi_tail[
                 
 }
 
-
 // de facut contorul la puncte ca e bugged
 // de implementat marimea tabelei
 // de facut moduri de joc cu viteza si nebunii 
-//de vazut cum fac cu terminalul sa fie ok dupa probabil de set input mode se intampla asta
+

@@ -9,13 +9,13 @@
 
 int death_condition(int i, int j, int tail_length, int vi[100], int vj[100], int n, int m)
 {
-    if(i == 0 || j == 0)
+    if (i == 0 || j == 0)
         return 1;
-    for(int k = 1; k < tail_length; k++) {
-        if(vi[k] == i && vj[k] == j)
+    for (int k = 1; k < tail_length; k++) {
+        if (vi[k] == i && vj[k] == j)
             return 1;
     }
-    if(i == n - 1 || j == m - 1)
+    if (i == n - 1 || j == m - 1)
         return 1;
     
     return 0;
@@ -93,12 +93,12 @@ void make_random(int n, int m, int v[100][100])
 {
 
     for (int i = 0; i < n / 2; i++) {
-        //srand(time(NULL));
+
         
         int numi = rand() % (n);
         if(numi == 0)
             numi++;
-        //srand(time(NULL));
+
         if(numi == n - 1)
             numi--;
 
@@ -119,7 +119,7 @@ int make_one_random(int n)
     int numi = rand() % (n);
         if (numi == 0)
             numi++;
-        //srand(time(NULL));
+
         if (numi == n - 1)
             numi--;
     return numi;
@@ -134,7 +134,7 @@ void verif_pos(int n, int m, int v[100][100], int pos_i, int pos_j, int vi_tail[
                 int l = make_one_random(n);
 
                 v[i][j] = 0;
-                int ok = 0;
+                
                 if(*tail_length == -1) {
                     *tail_length = 0;
                 } else {
@@ -148,19 +148,17 @@ void verif_pos(int n, int m, int v[100][100], int pos_i, int pos_j, int vi_tail[
                 vi_tail[0] = pos_i;
                 vj_tail[0] = pos_j;
                 
-                
-                // while(ok != 1) {
-                //     if(v[l][k] == 0)
-                //         ok = 1;
-                //     int k = make_one_random(n);
-                //     int l = make_one_random(n);
-                // }
+                int ok = 0;
+                while(ok != 1) {
+                    if(v[l][k] == 0)
+                        ok = 1;
+                     k = make_one_random(n);
+                     l = make_one_random(n);
+                }
                 v[l][k] = 1;
             }
                 
 }
 
-// de facut contorul la puncte ca e bugged
-// de implementat marimea tabelei
-// de facut moduri de joc cu viteza si nebunii 
+
 

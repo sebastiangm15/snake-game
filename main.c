@@ -46,12 +46,11 @@ int main(void)
     int vi_tail[100] = {0}, vj_tail[100] = {0}; 
 
     while (c != 'q') {
-        //int vi_tail[100] = {0}, vj_tail[100] = {0}; 
-        //c = getchar();
+
         if (kbhit()) {
             read(STDIN_FILENO, &c, 1);
         }
-        usleep(300000);
+        usleep(300000); // time before moves
         position(n, m, c, &start_i, &start_j, &tail_length, vi_tail, vj_tail);
         printf("\033[H\033[J");  // Clear screen using ANSI escape codes
       
@@ -60,7 +59,7 @@ int main(void)
         verif_pos(n, m, v, start_i, start_j, vi_tail, vj_tail, &tail_length);
         printf("score : %d\n", (tail_length + 1) * 10);
         if (death_condition(start_i, start_j, tail_length, vi_tail, vj_tail, n, m) == 1) {
-            printf("\033[H\033[J");
+            printf("\033[H\033[J");// Clear screen using ANSI escape codes
             printf("\tLOOSE\n");
             break;
         }
